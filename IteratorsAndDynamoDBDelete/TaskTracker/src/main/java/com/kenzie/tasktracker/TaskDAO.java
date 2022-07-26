@@ -26,7 +26,9 @@ public class TaskDAO {
      * @param task given Task instance that's removed from the table based on the partition key
      */
     public void deleteTask(Task task) {
-        //TODO: Implement functionality to delete the task that's passed in
+        task.setJobId(task.getJobId());
+        saveTask(task);
+        mapper.delete(task);
     }
 
 
@@ -36,7 +38,17 @@ public class TaskDAO {
      * @param year Year that a task must be completed in for the task to be deleted
      */
     public void deleteTask(Task task, String year) {
-        //TODO: Implement functionality to delete the task that's passed in if it's year_completed == year
+        task.setJobId(task.getJobId());
+
+        try {
+            DynamoDBDeleteExpression deleteExpression = new DynamoDBDeleteExpression();
+            Map<String, ExpectedAttributeValue> expected = new HashMap<>();
+            expected.put("year_completed", new ExpectedAttributeValue(new AttributeValue(year)));
+            deleteExpression.setExpected(expected);
+            mapper.delete(task, deleteExpression);
+        } catch (ConditionalCheckFailedException e) {
+            System.out.println(e);
+        }
     }
 
     /**

@@ -25,7 +25,7 @@ public class Phase4Test {
     private GetInvitesForMemberActivity getInvitesForMemberActivity;
 
     @BeforeEach
-    private void setup() {
+    void setup() {
         createMemberActivity = ActivityProvider.provideCreateMemberActivity();
         createEventActivity = ActivityProvider.provideCreateEventActivity();
         createInviteActivity = ActivityProvider.provideCreateInviteActivity();

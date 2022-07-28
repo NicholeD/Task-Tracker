@@ -27,7 +27,7 @@ public class EventDaoTest {
     ArgumentCaptor<Event> eventCaptor;
 
     @BeforeEach
-    private void setup() {
+    void setup() {
         initMocks(this);
     }
 

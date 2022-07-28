@@ -2,8 +2,10 @@ package com.kenzie.socialcalendar.activity;
 
 import com.kenzie.socialcalendar.dao.InviteDao;
 import com.kenzie.socialcalendar.dao.MemberDao;
+import com.kenzie.socialcalendar.dao.models.Invite;
 
 import javax.inject.Inject;
+import java.util.List;
 
 /**
  * Handles a request to delete a member. Actually deletes the member
@@ -38,6 +40,11 @@ public class DeleteMemberActivity {
      * @param memberId The ID of the member to delete
      */
     public void handleRequest(final String memberId) {
+        List<Invite> invites = inviteDao.getInvitesSentToMember(memberId);
+
+        for (Invite invite : invites) {
+            inviteDao.deleteInvite(invite.getEventId(), invite.getMemberId());
+        }
         memberDao.deletePermanently(memberId);
     }
 }

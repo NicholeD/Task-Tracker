@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.kenzie.socialcalendar.Phase4Test" tests="3" skipped="0" failures="0" errors="0" timestamp="2022-07-28T21:40:08" hostname="Nicholes-MacBook-Pro.local" time="4.667">
+  <properties/>
+  <testcase name="getInvitesForMemberActivity_noCanceledEvents_returnsAllInvitesAndNoInvitesCanceled()" classname="com.kenzie.socialcalendar.Phase4Test" time="2.546"/>
+  <testcase name="getInvitesForMemberActivity_withCanceledEvent_marksCorrespondingInviteAsCanceled()" classname="com.kenzie.socialcalendar.Phase4Test" time="1.009"/>
+  <testcase name="getInvitesForMemberActivity_withCanceledEvent_returnsCanceledInviteInPlaceOfInvite()" classname="com.kenzie.socialcalendar.Phase4Test" time="1.111"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

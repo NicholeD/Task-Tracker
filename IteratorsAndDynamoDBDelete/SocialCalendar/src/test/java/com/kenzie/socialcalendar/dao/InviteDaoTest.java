@@ -25,7 +25,7 @@ public class InviteDaoTest {
     private DynamoDBMapper mapper;
 
     @BeforeEach
-    private void setup() {
+    void setup() {
         initMocks(this);
     }
 

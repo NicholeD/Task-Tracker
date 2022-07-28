@@ -1,6 +1,7 @@
 package com.kenzie.iteratorsanddynamodb.wishlist;
 
 import java.util.List;
+import java.util.ListIterator;
 
 public class WishList {
 
@@ -11,6 +12,14 @@ public class WishList {
      * @return the wishList with the newly added item
      */
     public List<WishListItem> addLast(List<WishListItem> wishList, WishListItem item) {
+        ListIterator<WishListItem> wishlistIterator = wishList.listIterator();
+
+        while (wishlistIterator.hasNext()) {
+            wishlistIterator.next();
+        }
+
+        wishlistIterator.add(item);
+
         return wishList;
     }
 
@@ -22,6 +31,23 @@ public class WishList {
      * @return the wishList with the newly added item
      */
     public List<WishListItem> addAtIndex(List<WishListItem> wishList, WishListItem item, int index) {
+        int cursorLocation = 0;
+        boolean added = false;
+        ListIterator<WishListItem> wishlistIterator = wishList.listIterator();
+
+        while(wishlistIterator.hasNext()) {
+            if (cursorLocation == index) {
+                wishlistIterator.add(item);
+                added = true;
+            }
+            wishlistIterator.next();
+            cursorLocation++;
+        }
+
+        if (!added) {
+            wishlistIterator.add(item);
+        }
+
         return wishList;
     }
 
@@ -31,6 +57,13 @@ public class WishList {
      * @return the empty wishList
      */
     public List<WishListItem> removeAll(List<WishListItem> wishList) {
+        ListIterator<WishListItem> wishlistIterator = wishList.listIterator();
+
+        while (wishlistIterator.hasNext()) {
+            wishlistIterator.next();
+            wishlistIterator.remove();
+        }
+
         return wishList;
     }
 
@@ -41,6 +74,14 @@ public class WishList {
      * @return the wishList with the removed item
      */
     public List<WishListItem> removeItem(List<WishListItem> wishList, WishListItem item) {
+        ListIterator<WishListItem> wishlistIterator = wishList.listIterator();
+
+        while (wishlistIterator.hasNext()) {
+            if (wishlistIterator.next() == item) {
+                wishlistIterator.remove();
+            }
+        }
+
         return wishList;
     }
 }

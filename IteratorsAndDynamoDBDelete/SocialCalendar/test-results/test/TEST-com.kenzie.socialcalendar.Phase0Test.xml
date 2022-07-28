@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.kenzie.socialcalendar.Phase0Test" tests="3" skipped="0" failures="0" errors="0" timestamp="2022-07-28T18:54:41" hostname="Nicholes-MacBook-Pro.local" time="1.579">
+  <properties/>
+  <testcase name="[1] DynamoDBDeleteIterators-Events" classname="com.kenzie.socialcalendar.Phase0Test" time="0.858"/>
+  <testcase name="[2] DynamoDBDeleteIterators-Invites" classname="com.kenzie.socialcalendar.Phase0Test" time="0.36"/>
+  <testcase name="[3] DynamoDBDeleteIterators-Members" classname="com.kenzie.socialcalendar.Phase0Test" time="0.351"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

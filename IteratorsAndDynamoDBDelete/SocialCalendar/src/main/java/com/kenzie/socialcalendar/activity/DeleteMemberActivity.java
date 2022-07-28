@@ -38,5 +38,6 @@ public class DeleteMemberActivity {
      * @param memberId The ID of the member to delete
      */
     public void handleRequest(final String memberId) {
+        memberDao.deletePermanently(memberId);
     }
 }

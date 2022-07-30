@@ -43,7 +43,7 @@ public class InviteDaoTest {
     private QueryResultPage<Invite> inviteQueryResultPage;
 
     @BeforeEach
-    private void setup() {
+    void setup() {
         initMocks(this);
     }
 

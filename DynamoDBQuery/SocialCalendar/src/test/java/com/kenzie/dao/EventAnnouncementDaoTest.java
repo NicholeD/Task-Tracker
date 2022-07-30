@@ -56,9 +56,9 @@ public class EventAnnouncementDaoTest {
         when(mapper.query(eq(EventAnnouncement.class), any(DynamoDBQueryExpression.class))).thenReturn(queryResult);
 
         //WHEN
-        List<EventAnnouncement> results = eventAnnouncementDao.getEventAnnouncementsBetweenDates(any(String.class),
-                any(ZonedDateTime.class),
-                any(ZonedDateTime.class));
+        List<EventAnnouncement> results = eventAnnouncementDao.getEventAnnouncementsBetweenDates("",
+                ZonedDateTime.now(),
+                ZonedDateTime.now());
 
         //THEN
         verify(mapper).query(eq(EventAnnouncement.class), any(DynamoDBQueryExpression.class));

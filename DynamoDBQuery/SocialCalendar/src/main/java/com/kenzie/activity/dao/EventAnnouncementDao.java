@@ -73,7 +73,6 @@ public class EventAnnouncementDao {
                 .withKeyConditionExpression("eventId = :eventId and timePublished between :startTime and :endTime")
                 .withExpressionAttributeValues(valueMap);
 
-        //PaginatedQueryList<EventAnnouncement> eventAnnouncements =
         return mapper.query(EventAnnouncement.class, queryExpression);
     }
 

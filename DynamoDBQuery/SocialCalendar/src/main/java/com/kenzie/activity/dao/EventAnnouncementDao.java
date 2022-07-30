@@ -4,13 +4,17 @@ package com.kenzie.activity.dao;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedQueryList;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.kenzie.activity.converter.ZonedDateTimeConverter;
 import com.kenzie.activity.dao.models.Event;
 import com.kenzie.activity.dao.models.EventAnnouncement;
 
 import javax.inject.Inject;
 import java.time.ZonedDateTime;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Manages access to EventAnnouncement items.
@@ -56,7 +60,21 @@ public class EventAnnouncementDao {
     public List<EventAnnouncement> getEventAnnouncementsBetweenDates(String eventId, ZonedDateTime startTime,
                                                                      ZonedDateTime endTime) {
         // TODO: implement
-        return Collections.emptyList();
+        ZonedDateTimeConverter converter = new ZonedDateTimeConverter();
+        String convertedStartTime = converter.convert(startTime);
+        String convertedEndTime = converter.convert(endTime);
+
+        Map<String, AttributeValue> valueMap = new HashMap<>();
+        valueMap.put(":eventId", new AttributeValue().withS(eventId));
+        valueMap.put(":startTime", new AttributeValue().withS(convertedStartTime));
+        valueMap.put(":endTime", new AttributeValue().withS(convertedEndTime));
+
+        DynamoDBQueryExpression<EventAnnouncement> queryExpression = new DynamoDBQueryExpression<EventAnnouncement>()
+                .withKeyConditionExpression("eventId = :eventId and timePublished between :startTime and :endTime")
+                .withExpressionAttributeValues(valueMap);
+
+        //PaginatedQueryList<EventAnnouncement> eventAnnouncements =
+        return mapper.query(EventAnnouncement.class, queryExpression);
     }
 
     /**

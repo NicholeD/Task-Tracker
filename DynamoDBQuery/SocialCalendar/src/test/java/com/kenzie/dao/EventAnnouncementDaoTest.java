@@ -3,6 +3,7 @@ package com.kenzie.dao;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedQueryList;
+import com.kenzie.activity.converter.ZonedDateTimeConverter;
 import com.kenzie.activity.dao.EventAnnouncementDao;
 import com.kenzie.activity.dao.models.EventAnnouncement;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,5 +48,21 @@ public class EventAnnouncementDaoTest {
         // THEN
         verify(mapper).query(eq(EventAnnouncement.class), any(DynamoDBQueryExpression.class));
         assertEquals(results, queryResult, "Expected getEventAnnouncements to return the query list");
+    }
+
+    @Test
+    public void getEventAnnouncementsBetweenDates_queriesDynamoDB_returnsListFromDynamo() {
+        //GIVEN
+        when(mapper.query(eq(EventAnnouncement.class), any(DynamoDBQueryExpression.class))).thenReturn(queryResult);
+
+        //WHEN
+        List<EventAnnouncement> results = eventAnnouncementDao.getEventAnnouncementsBetweenDates(any(String.class),
+                any(ZonedDateTime.class),
+                any(ZonedDateTime.class));
+
+        //THEN
+        verify(mapper).query(eq(EventAnnouncement.class), any(DynamoDBQueryExpression.class));
+        assertEquals(results, queryResult, "Expected getEventAnnouncements to return the query list");
+
     }
 }

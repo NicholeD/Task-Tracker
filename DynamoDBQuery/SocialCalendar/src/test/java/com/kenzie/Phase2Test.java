@@ -18,7 +18,7 @@ public class Phase2Test {
     private TestDataProvider testDataProvider;
 
     @BeforeEach
-    private void setup() {
+    void setup() {
         getEventAnnouncementsBetweenDatesActivity = ActivityProvider.provideGetEventAnnouncementsBetweenDatesActivity();
         testDataProvider = new TestDataProvider();
     }

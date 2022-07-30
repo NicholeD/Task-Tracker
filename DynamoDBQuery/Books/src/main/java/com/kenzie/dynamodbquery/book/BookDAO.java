@@ -46,7 +46,6 @@ public class BookDAO {
      * @return the List from the QueryResultPage that is returned from the query
      */
     public List<Book> getBooksReadByEmployee(String employeeId, String exclusiveStartAsin, int limit){
-        //TODO: implement
         Book book = new Book();
         book.setId(employeeId);
 

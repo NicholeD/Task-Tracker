@@ -30,7 +30,6 @@ public class LogDAO {
      * @return the PaginatedQueryList that is returned from the query
      */
     public List<Log> getLogsBetweenTimes(String logLevel, String startTime, String endTime) {
-        // TODO: implement
         Map<String, AttributeValue> valueMap = new HashMap<>();
         valueMap.put(":logLevel", new AttributeValue().withS(logLevel));
         valueMap.put(":startTime", new AttributeValue().withS(startTime));
@@ -52,7 +51,6 @@ public class LogDAO {
      * @return the PaginatedQueryList that is returned from the query
      */
     public List<Log> getLogsBeforeTime(String logLevel, String endTime) {
-        //TODO: implement
         Map<String, AttributeValue> valueMap = new HashMap<>();
         valueMap.put(":logLevel", new AttributeValue().withS(logLevel));
         valueMap.put(":endTime", new AttributeValue().withS(endTime));
@@ -73,7 +71,6 @@ public class LogDAO {
      * @return the PaginatedQueryList that is returned from the query
      */
     public List getLogsAfterTime(String logLevel, String startTime) {
-        //TODO: implement
         Map<String, AttributeValue> valueMap = new HashMap<>();
         valueMap.put(":logLevel", new AttributeValue().withS(logLevel));
         valueMap.put(":startTime", new AttributeValue().withS(startTime));

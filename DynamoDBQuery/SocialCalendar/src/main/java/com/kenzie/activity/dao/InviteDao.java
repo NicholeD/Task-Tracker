@@ -101,7 +101,6 @@ public class InviteDao {
      * @return Paginated list of invites.
      */
     public List<Invite> getInvitesForEvent(String eventId, String exclusiveStartMemberId) {
-        // TODO: implement
         Invite invite = new Invite();
         invite.setEventId(eventId);
 
@@ -126,6 +125,5 @@ public class InviteDao {
             QueryResultPage<Invite> inviteQueryResults = mapper.queryPage(Invite.class, queryExpression);
             return inviteQueryResults.getResults();
         }
-
     }
 }

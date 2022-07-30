@@ -17,7 +17,7 @@ public class Phase3Test {
     private TestDataProvider testDataProvider;
 
     @BeforeEach
-    private void setup() {
+    void setup() {
         getInvitesForEventActivity = ActivityProvider.provideGetInvitesForEventActivity();
         testDataProvider = new TestDataProvider();
     }

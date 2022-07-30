@@ -8,6 +8,7 @@ import com.kenzie.activity.dao.EventAnnouncementDao;
 import com.kenzie.activity.dao.models.EventAnnouncement;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
@@ -43,9 +44,14 @@ public class EventAnnouncementDaoTest {
         when(mapper.query(eq(EventAnnouncement.class), any(DynamoDBQueryExpression.class))).thenReturn(queryResult);
 
         // WHEN
-        List<EventAnnouncement> results = eventAnnouncementDao.getEventAnnouncements("");
+        List<EventAnnouncement> results = eventAnnouncementDao.getEventAnnouncements("eventID");
 
         // THEN
+        ArgumentCaptor<DynamoDBQueryExpression<EventAnnouncement>> captor = ArgumentCaptor.forClass(DynamoDBQueryExpression.class);
+        verify(mapper).query(eq(EventAnnouncement.class), captor.capture());
+        DynamoDBQueryExpression<EventAnnouncement> capturedQueryExpression = captor.getValue();
+        EventAnnouncement eventAnnouncement = capturedQueryExpression.getHashKeyValues();
+        assertEquals(eventAnnouncement.getEventId(), "eventID", "Expected the hash key value to contain " +  "event id: " + "eventID");
         verify(mapper).query(eq(EventAnnouncement.class), any(DynamoDBQueryExpression.class));
         assertEquals(results, queryResult, "Expected getEventAnnouncements to return the query list");
     }
@@ -56,13 +62,12 @@ public class EventAnnouncementDaoTest {
         when(mapper.query(eq(EventAnnouncement.class), any(DynamoDBQueryExpression.class))).thenReturn(queryResult);
 
         //WHEN
-        List<EventAnnouncement> results = eventAnnouncementDao.getEventAnnouncementsBetweenDates("",
+        List<EventAnnouncement> results = eventAnnouncementDao.getEventAnnouncementsBetweenDates("eventID",
                 ZonedDateTime.now(),
                 ZonedDateTime.now());
 
         //THEN
         verify(mapper).query(eq(EventAnnouncement.class), any(DynamoDBQueryExpression.class));
         assertEquals(results, queryResult, "Expected getEventAnnouncements to return the query list");
-
     }
 }

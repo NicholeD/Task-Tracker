@@ -13,10 +13,9 @@ import org.mockito.Mock;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -42,7 +41,7 @@ public class EventAnnouncementDaoTest {
         when(mapper.query(eq(EventAnnouncement.class), any(DynamoDBQueryExpression.class))).thenReturn(queryResult);
 
         // WHEN
-        List<EventAnnouncement> results = new ArrayList<>();
+        List<EventAnnouncement> results = eventAnnouncementDao.getEventAnnouncements("");
 
         // THEN
         verify(mapper).query(eq(EventAnnouncement.class), any(DynamoDBQueryExpression.class));

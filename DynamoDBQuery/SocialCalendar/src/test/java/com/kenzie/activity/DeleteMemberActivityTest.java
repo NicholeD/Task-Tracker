@@ -26,7 +26,7 @@ public class DeleteMemberActivityTest {
     private InviteDao inviteDao;
 
     @BeforeEach
-    private void setup() {
+    void setup() {
         initMocks(this);
     }
 

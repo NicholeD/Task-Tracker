@@ -2,6 +2,9 @@ package com.kenzie.activity.dao;
 
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
+import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedQueryList;
+import com.kenzie.activity.dao.models.Event;
 import com.kenzie.activity.dao.models.EventAnnouncement;
 
 import javax.inject.Inject;
@@ -32,8 +35,14 @@ public class EventAnnouncementDao {
      * @return the list of event announcements.
      */
     public List<EventAnnouncement> getEventAnnouncements(String eventId) {
-        // TODO: implement
-        return Collections.emptyList();
+        EventAnnouncement eventAnnouncement = new EventAnnouncement();
+        eventAnnouncement.setEventId(eventId);
+
+        DynamoDBQueryExpression<EventAnnouncement> queryExpression = new DynamoDBQueryExpression<EventAnnouncement>()
+                .withHashKeyValues(eventAnnouncement);
+
+        PaginatedQueryList<EventAnnouncement> eventAnnouncements = mapper.query(EventAnnouncement.class, queryExpression);
+        return eventAnnouncements;
     }
 
     /**

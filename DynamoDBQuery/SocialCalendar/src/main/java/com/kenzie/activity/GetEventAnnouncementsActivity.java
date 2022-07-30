@@ -33,7 +33,6 @@ public class GetEventAnnouncementsActivity {
      * @return List of announcements for the event.
      */
     public List<EventAnnouncement> handleRequest(final String eventId) {
-        // TODO: implement
-        return Collections.emptyList();
+        return eventAnnouncementDao.getEventAnnouncements(eventId);
     }
 }

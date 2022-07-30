@@ -20,7 +20,7 @@ public class GetEventAnnouncementsActivityTest {
     private EventAnnouncementDao eventAnnouncementDao;
 
     @BeforeEach
-    private void setup() {
+    void setup() {
         initMocks(this);
     }
 

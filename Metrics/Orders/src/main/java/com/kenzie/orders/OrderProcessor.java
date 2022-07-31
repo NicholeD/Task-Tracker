@@ -1,6 +1,7 @@
 package com.kenzie.orders;
 
 
+import com.amazonaws.services.cloudwatch.model.StandardUnit;
 import com.kenzie.orders.resources.CustomerManager;
 import com.kenzie.orders.resources.InventoryManager;
 import com.kenzie.orders.resources.Order;
@@ -22,7 +23,7 @@ public class OrderProcessor {
      *
      * @param metricsPublisher Used to publish metrics to CloudWatch.
      */
-    public OrderProcessor(MetricsPublisher metricsPublisher, PaymentProcessor creditProcessor) {
+    public OrderProcessor(MetricsPublisher metricsPublisher, PaymentProcessor creditProcessor, InventoryManager inventoryManager, CustomerManager customerManager) {
         this.metricsPublisher = metricsPublisher;
         this.creditProcessor = creditProcessor;
     }
@@ -39,6 +40,7 @@ public class OrderProcessor {
             int pickListNumber = inventoryManager.createPickList(newOrder);
             creditProcessor.processPayment(newOrder);
             inventoryManager.processPickList(pickListNumber);
+            metricsPublisher.addMetric("ORDER_TOTALS", newOrder.getTotalPrice(), StandardUnit.None);
         } catch (Exception e) {
             System.out.println("Error processing order " + newOrder.getOrderId());
         }

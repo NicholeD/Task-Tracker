@@ -3,6 +3,8 @@ package com.kenzie.orders;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.cloudwatch.AmazonCloudWatch;
 import com.amazonaws.services.cloudwatch.AmazonCloudWatchClientBuilder;
+import com.amazonaws.services.cloudwatch.model.Dimension;
+import com.amazonaws.services.cloudwatch.model.MetricDatum;
 import com.amazonaws.services.cloudwatch.model.PutMetricDataRequest;
 import com.amazonaws.services.cloudwatch.model.StandardUnit;
 
@@ -41,6 +43,20 @@ public class MetricsPublisher {
             final double value,
             final StandardUnit unit) {
         // TODO - implement the method to convert raw values into a metric data object, then return that object
-        return null;
+        Dimension dimension1 = new Dimension()
+                .withName("ENVIRONMENT")
+                .withValue("PRODUCTION");
+
+        MetricDatum datum = new MetricDatum()
+                .withMetricName(metricName)
+                .withValue(value)
+                .withUnit(unit)
+                .withDimensions(dimension1);
+
+        PutMetricDataRequest request = new PutMetricDataRequest()
+                .withNamespace("EXAMPLE/ORDERS")
+                .withMetricData(datum);
+
+        return request;
     }
 }

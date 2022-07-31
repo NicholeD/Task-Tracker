@@ -43,6 +43,8 @@ public class OrderProcessor {
             metricsPublisher.addMetric("ORDER_TOTALS", newOrder.getTotalPrice(), StandardUnit.None);
         } catch (Exception e) {
             System.out.println("Error processing order " + newOrder.getOrderId());
+            metricsPublisher.addMetric("ORDER_FAILURES", 1, StandardUnit.Count);
         }
+        metricsPublisher.addMetric("ORDER_FAILURES", 0, StandardUnit.Count);
     }
 }

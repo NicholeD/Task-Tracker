@@ -11,7 +11,7 @@ import com.kenzie.orders.resources.Order;
  * Class representing final state of the coding activity.
  */
 public class OrderProcessor {
-    
+
     private CustomerManager customerManager = new CustomerManager();
     private InventoryManager inventoryManager = new InventoryManager();
     private CreditProcessor creditProcessor;

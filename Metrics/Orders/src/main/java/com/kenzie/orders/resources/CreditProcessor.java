@@ -1,6 +1,6 @@
 package com.kenzie.orders.resources;
 
-public class CreditProcessor implements PaymentProcessor {
+public class CreditProcessor {
 
     /**
      * Stubs out back end work with a wait time of 250 milliseconds.

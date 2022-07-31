@@ -2,20 +2,19 @@ package com.kenzie.orders;
 
 
 import com.amazonaws.services.cloudwatch.model.StandardUnit;
+import com.kenzie.orders.resources.CreditProcessor;
 import com.kenzie.orders.resources.CustomerManager;
 import com.kenzie.orders.resources.InventoryManager;
 import com.kenzie.orders.resources.Order;
-import com.kenzie.orders.resources.PaymentProcessor;
 
 /**
  * Class representing final state of the coding activity.
  */
 public class OrderProcessor {
-
-    // TODO - refactor this class so all dependencies are accepted via constructor
+    
     private CustomerManager customerManager = new CustomerManager();
     private InventoryManager inventoryManager = new InventoryManager();
-    private PaymentProcessor creditProcessor;
+    private CreditProcessor creditProcessor;
     private MetricsPublisher metricsPublisher;
 
     /**
@@ -23,7 +22,7 @@ public class OrderProcessor {
      *
      * @param metricsPublisher Used to publish metrics to CloudWatch.
      */
-    public OrderProcessor(MetricsPublisher metricsPublisher, PaymentProcessor creditProcessor, InventoryManager inventoryManager, CustomerManager customerManager) {
+    public OrderProcessor(MetricsPublisher metricsPublisher, CreditProcessor creditProcessor, InventoryManager inventoryManager, CustomerManager customerManager) {
         this.metricsPublisher = metricsPublisher;
         this.creditProcessor = creditProcessor;
     }
@@ -34,6 +33,7 @@ public class OrderProcessor {
      * @param newOrder The order to be processed
      */
     public void processOrder(Order newOrder) {
+        double startTime = System.currentTimeMillis();
 
         try {
             customerManager.verifyCustomerInfo(newOrder);
@@ -46,5 +46,8 @@ public class OrderProcessor {
             metricsPublisher.addMetric("ORDER_FAILURES", 1, StandardUnit.Count);
         }
         metricsPublisher.addMetric("ORDER_FAILURES", 0, StandardUnit.Count);
+        double endTime = System.currentTimeMillis();
+        double timeInMilliseconds = endTime - startTime;
+        metricsPublisher.addMetric("ORDER_PROCESSING_TIMES", timeInMilliseconds, StandardUnit.Milliseconds);
     }
 }

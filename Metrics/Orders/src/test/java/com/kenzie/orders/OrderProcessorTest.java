@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
@@ -24,8 +25,14 @@ public class OrderProcessorTest {
     @Mock
     private MetricsPublisher metricsPublisher;
 
-    @Mock
+    @Spy
     private CreditProcessor creditProcessor;
+
+    @Mock
+    private CustomerManager customerManager;
+
+    @Mock
+    private InventoryManager inventoryManager;
 
     @InjectMocks
     private OrderProcessor orderProcessor;

@@ -5,6 +5,7 @@ import com.kenzie.hotel.dao.ReservationDao;
 import com.kenzie.hotel.dao.models.UpdatedReservation;
 import com.kenzie.hotel.metrics.MetricsPublisher;
 
+import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import javax.inject.Inject;
 
@@ -37,11 +38,13 @@ public class ModifyReservationActivity {
     public UpdatedReservation handleRequest(final String reservationId, final ZonedDateTime checkInDate,
                                             final Integer numberOfNights) {
 
-        UpdatedReservation updatedReservation = reservationDao.modifyReservation(reservationId, checkInDate,
+
+            UpdatedReservation updatedReservation = reservationDao.modifyReservation(reservationId, checkInDate,
                     numberOfNights);
+            BigDecimal costDifference = updatedReservation.getOriginalReservation().getTotalCost().subtract(updatedReservation.getModifiedReservation().getTotalCost());
 
-        metricsPublisher.addMetric("ModifiedReservationCount", 1, StandardUnit.Count);
-
-        return updatedReservation;
+            metricsPublisher.addMetric("ReservationRevenue", -costDifference.doubleValue(), StandardUnit.None);
+            metricsPublisher.addMetric("ModifiedReservationCount", 1, StandardUnit.Count);
+            return updatedReservation;
     }
 }

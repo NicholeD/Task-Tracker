@@ -6,6 +6,7 @@ import com.kenzie.hotel.dao.models.Reservation;
 import com.kenzie.hotel.metrics.MetricsPublisher;
 
 import javax.inject.Inject;
+import java.math.BigDecimal;
 
 /**
  * Handles requests to cancel a reservation.
@@ -33,12 +34,15 @@ public class CancelReservationActivity {
      */
     public Reservation handleRequest(final String reservationId) {
         Reservation response = new Reservation();
+        Reservation reservation = reservationDao.getReservation(reservationId);
         try {
             response = reservationDao.cancelReservation(reservationId);
             metricsPublisher.addMetric("CanceledReservationCount", 1, StandardUnit.Count);
         } catch (Exception e) {
             System.out.println("Error canceling reservation " + reservationId);
         }
+
+        metricsPublisher.addMetric("ReservationRevenue", -(reservation.getTotalCost().doubleValue()), StandardUnit.None);
 
         return response;
     }

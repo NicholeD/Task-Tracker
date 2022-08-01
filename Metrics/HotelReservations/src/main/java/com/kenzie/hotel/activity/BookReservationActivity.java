@@ -36,10 +36,12 @@ public class BookReservationActivity {
         Reservation response = new Reservation();
         try {
             response = reservationDao.bookReservation(reservation);
-            metricsPublisher.addMetric("BookedReservationCount", 1, StandardUnit.Count);
+
         } catch (Exception e) {
             System.out.println("Error booking reservation " + reservation.getReservationId());
         }
+        metricsPublisher.addMetric("BookedReservationCount", 1, StandardUnit.Count);
+        metricsPublisher.addMetric("ReservationRevenue", reservation.getTotalCost().doubleValue(), StandardUnit.None);
 
         return response;
     }

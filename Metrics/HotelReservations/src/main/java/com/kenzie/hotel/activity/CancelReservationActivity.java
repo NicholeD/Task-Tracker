@@ -1,5 +1,6 @@
 package com.kenzie.hotel.activity;
 
+import com.amazonaws.services.cloudwatch.model.StandardUnit;
 import com.kenzie.hotel.dao.ReservationDao;
 import com.kenzie.hotel.dao.models.Reservation;
 import com.kenzie.hotel.metrics.MetricsPublisher;
@@ -31,8 +32,14 @@ public class CancelReservationActivity {
      * @return canceled reservation
      */
     public Reservation handleRequest(final String reservationId) {
+        Reservation response = new Reservation();
+        try {
+            response = reservationDao.cancelReservation(reservationId);
+            metricsPublisher.addMetric("CanceledReservationCount", 1, StandardUnit.Count);
+        } catch (Exception e) {
+            System.out.println("Error canceling reservation " + reservationId);
+        }
 
-        Reservation response = reservationDao.cancelReservation(reservationId);
         return response;
     }
 }

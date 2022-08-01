@@ -5,7 +5,7 @@ package com.kenzie.hotel.metrics;
  */
 public class MetricsConstants {
 
-    public static final String NAMESPACE = "Unit3MetricsClassroomActivity";
+    public static final String NAMESPACE = "LodgedeKenzieMetrics";
     public static final String SERVICE = "Service";
     public static final String SERVICE_NAME = "ATAHotelReservationService";
     public static final String MARKETPLACE = "Marketplace";

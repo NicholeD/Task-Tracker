@@ -33,7 +33,7 @@ public class Phase1Test {
     private ReservationDao reservationDao;
 
     @BeforeEach
-    private void setup() {
+    void setup() {
         metricsPublisher = spy(new MetricsPublisher(AmazonCloudWatchClientBuilder.standard().withRegion(Regions.US_EAST_1).build()));
         reservationDao = new ReservationDao(new DynamoDBMapper(DynamoDbClientProvider.getDynamoDBClient(Regions.US_EAST_1)));
         bookReservationActivity = new BookReservationActivity(reservationDao, metricsPublisher);

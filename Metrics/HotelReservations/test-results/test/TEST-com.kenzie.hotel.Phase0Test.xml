@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.kenzie.hotel.Phase0Test" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-08-01T00:13:56" hostname="Nicholes-MacBook-Pro.local" time="0.735">
+  <properties/>
+  <testcase name="[1] Metrics-Reservations" classname="com.kenzie.hotel.Phase0Test" time="0.735"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
